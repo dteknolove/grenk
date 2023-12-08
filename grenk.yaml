@@ -1,0 +1,8 @@
+database:
+  name: "rejo_local_db"
+  password: ""
+  username: "teknolove"
+  port: 5432
+  host: "localhost"
+  schema: "public"
+  repo_path: "./internal/repo"
