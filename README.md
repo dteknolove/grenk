@@ -1,6 +1,6 @@
 # Grenk - Parsing database column name to entity file
 
-## Installation
+## Installation!
 
 - Clone this repository
 - `./run.sh`
