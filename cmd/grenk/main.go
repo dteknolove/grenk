@@ -23,6 +23,15 @@ type ColumnInfo struct {
 	IsLastField         bool
 }
 
+const (
+	insertTemplate   = "`insert into table_name	(item,item2) values($1,$2)`"
+	deleteTemplate   = "`delete from table_name where id = $1`"
+	updateTemplate   = "`update from table_name	set item = $2	where id = $1`"
+	countRowTemplate = "`select count(1) from table_name`"
+	findIDTemplate   = "`select id from table_name where id = $1`"
+	findAllTemplate  = "`select id,name from table_name tn order by updated_at desc limit $1 offset $2`"
+)
+
 func templateContent(repoName string) string {
 	return fmt.Sprintf(`package %s
 
@@ -53,6 +62,8 @@ func mapDataType(dataType string) string {
 		return "time.Time"
 	case strings.Contains(dataType, "bigint"):
 		return "int64"
+	case strings.Contains(dataType, "smallint"):
+		return "int"
 	case strings.Contains(dataType, "double precision"):
 		return "float64"
 	default:
@@ -83,8 +94,19 @@ func main() {
 		Usage: "fight the loneliness!",
 		Commands: []*cli.Command{
 			{
-				Name:  "generate",
-				Usage: "genereate column to entity",
+				Name:        "generate",
+				Usage:       "generate database column to entity",
+				Description: "save a ton of hour",
+				Subcommands: []*cli.Command{
+					{
+						Name:  "handler",
+						Usage: "generate handler and service",
+						Action: func(_ *cli.Context) error {
+							fmt.Println("this will generate handler")
+							return nil
+						},
+					},
+				},
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:  "table",
@@ -192,20 +214,47 @@ func main() {
 		}
 
 		func (w *write) Create(ctx context.Context, p Insert) error {
-			//TODO implement me
-			panic("implement me")
+		// TODO: create
+				
+		// q := %s
+		// _, err := w.TX.Exec(ctx, q, p.Name)
+		// if err != nil {
+			// return err
+		// }
+		// return nil
+	
+		panic("implement create")
 		}
 
 		func (w *write) Update(ctx context.Context, p Update) error {
-			//TODO implement me
-			panic("implement me")
+		// TODO: update
+
+		// q := %s
+		// _, err := w.TX.Exec(ctx, q, p.Name)
+		// 	if err != nil {
+		//		return err
+		// 	}
+		// return nil
+
+		panic("implement update")
 		}
 
 		func (w *write) Delete(ctx context.Context, p Delete) error {
-			//TODO implement me
-			panic("implement me")
+		// TODO: delete
+
+		//	q := %s
+		//	exec, err := w.TX.Exec(ctx, q, p.Item)
+		//	if err != nil {
+		//		if exec.RowsAffected() == 0 {
+		//			return db.ErrNoAffected
+		//		}
+		//		return err
+		//	}
+		//	return nil
+
+		panic("implement delete")
 		}
-		   `, repoName)
+		   `, repoName, insertTemplate, updateTemplate, deleteTemplate)
 					readContent := fmt.Sprintf(`
 		package %s
 
@@ -223,22 +272,57 @@ func main() {
 		}
 
 		func (r *read) CountRow(ctx context.Context) (int32, error) {
-			//TODO implement me
-			panic("implement me")
+		
+	// TODO: countrow
+
+	// var count int32
+	// q := %s
+	// err := r.DB.QueryRow(ctx, q).Scan(&count)
+	//if err != nil {
+	// 	return 0, err
+	// }
+	// return count, nil
+	panic("implement me")
 		}
 
 		func (r *read) FindById(ctx context.Context, p Entity) (*Entity, error) {
-			var e Entity
-			//TODO implement me
-			panic("implement me")
+		
+	// TODO: find ID
+
+	// var e Entity
+	// q := %s
+	// err := r.DB.QueryRow(ctx, q, p.ID).Scan(&e)
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// return &e, nil
+
+	panic("implement me")
 		}
 
 		func (r *read) FindAllPagination(ctx context.Context, limit, offset int16) ([]*Entity, error) {
-			var es []*Entity
-			//TODO implement me
-			panic("implement me")
+		
+// TODO: find all
+
+	// var es []*Entity
+	// q := %s
+	// rows, errs := r.DB.Query(ctx, q, limit, offset)
+	// if errs != nil {
+	// 	return nil, errs
+	// }
+	//
+	// for rows.Next() {
+	// 	var e Entity
+	// 	err := rows.Scan(&e)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	// 	es = append(es, &e)
+	// }
+	// return es, nil
+			panic("implemented find all")
 		}
-		`, repoName)
+		`, repoName, countRowTemplate, findIDTemplate, findAllTemplate)
 
 					interfaceFilePath := folderPath + "/interface.go"
 					err = createFile(interfaceFilePath, interfaceContent)
