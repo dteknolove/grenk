@@ -2,3 +2,4 @@ vendor
 config.yaml
 bin/*
 internal
+grenk.yaml
