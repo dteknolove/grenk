@@ -2,9 +2,8 @@
 
 ## Installation!
 
-- Clone this repository
-- `./run.sh`
+- `go install github.com/dteknolove/grenk@latest`
 - `grenk init`
 - Setup grenk.yaml
-- `grenk generate --table your_table_name --reponame your_package_name`
+- `grenk generate --table your_table_name --package your_package_name`
 
