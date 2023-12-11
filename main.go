@@ -164,7 +164,7 @@ func main() {
 
 					entityTempalte := ptrn.TemplateEntityContent(flagPackage)
 
-					folderPath := vipp.RepoPath + flagPackage
+					folderPath := vipp.RepoPath + "/" + flagPackage
 					err = os.MkdirAll(folderPath, 0755)
 
 					file, err := os.Create(folderPath + ptrn.PATH_ENTITY)

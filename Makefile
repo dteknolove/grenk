@@ -9,10 +9,10 @@ TAR_DARWIN_ARM = tar -czvf ./tar/darwin_arm/grenk_darwin_arm64.tar.gz ./bin/darw
 TAR_WINDOWS = tar -czvf ./tar/windows/grenk_win64.tar.gz ./bin/windows/grenk
 TAR_LINUX = tar -czvf ./tar/linux/grenk_linux64.tar.gz ./bin/linux/grenk
 RM_GRENK = rm -rf /Users/teknolove/go/bin/grenk
-MOVE = cp -r ./bin/darwin_amd/grenk /Users/teknolove/go/bin
-GEN_JSON = go run ./cmd/gen/main.go
-DOLLAR = go run ./cmd/dollar/main.go
-COMMA = go run ./cmd/comma/main.go
+MOVE = cp -r ./bin/darwin_amd/grenk /Users/teknolove/go/bin 
+GEN_JSON = go run ./experimental/gen/main.go
+DOLLAR = go run ./experimental/dollar/main.go
+COMMA = go run ./experimental/comma/main.go
 comma:
 	$(COMMA)
 dollar:
